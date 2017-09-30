@@ -25,17 +25,27 @@ public class WordCount {
             String cleanLine = value.toString().toLowerCase().replaceAll("[_|$#<>\\^=\\[\\]\\*/\\\\,;,.\\-:()?!\"']", " "); // avoid punctuation marks and other special characters
             String stop_words[];
             stop_words = new String[] {"a","an","the","and","is",".",","};
+            chap_word = new String[] {"CHAPTER"};
             StringTokenizer itr = new StringTokenizer(cleanLine);
             while (itr.hasMoreTokens()) {
                 word.set(itr.nextToken().trim()); // to avoid white spaces
-                for(int i =0; i < stop_words.length; i++)
+                if(!(word.equals(chap_word)))
+                {
+                	for(int i =0; i < stop_words.length; i++)
                  {
-                 if(!(word.equals(stop_words[i])))
+                  
+                  if(!(word.equals(stop_words[i])))
                   {             
                    temp = word;
                   }
+                 
                  }
-                 context.write(temp, one);
+                 context.write(temp, one); //replace the one with the counter variable
+                }
+                else
+                {
+                	//counter++ add a global counter here and increment here
+                }
             }
       }
   }
